@@ -135,3 +135,8 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# pyenv initialization
+export PATH="/home/schart/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
