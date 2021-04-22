@@ -42,7 +42,7 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "Customize Pydocstring behavior
 "Set path to doq
-let g:pydocstring_doq_path='/home/schart/anaconda3/bin/doq'
+let g:pydocstring_doq_path='/home/schart/.local/bin/doq'
 "Define shortcut for insert docstring template
 map <leader>_ :Pydocstring<CR>
 "Set Pydocstring format
