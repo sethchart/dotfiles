@@ -87,16 +87,6 @@ au BufNewFile,BufRead *.js, *.html, *.css, *.md
 " Require UTF-8 encoding
 set encoding=utf-8
 
-"python with virtualenv support
-py3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
 " Python syntax highlighting
 let python_highlight_all=1
 syntax on
