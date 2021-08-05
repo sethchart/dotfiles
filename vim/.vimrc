@@ -21,18 +21,18 @@ nnoremap <space> za
 
 " PEP 8 indentation for python.
 au BufNewFile,BufRead *.py
-    \ set tabstop=4|
-    \ set softtabstop=4|
-    \ set shiftwidth=4|
-    \ set textwidth=79|
-    \ set expandtab|
-    \ set autoindent|
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
     \ set fileformat=unix
 
-" Flag unnecessary whitespace
+" Flag unnecessary white space
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match Cursor /\s\+$/
 
-" Indenting for web developement
+" Indenting for web development
 au BufNewFile,BufRead *.js, *.html, *.css, *.md
     \ set tabstop=2
     \ set softtabstop=2
