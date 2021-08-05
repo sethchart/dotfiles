@@ -56,14 +56,10 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# Import git status script
-. ~/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
-
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[01;35m\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W$(__git_ps1 " (%s)")\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
 
@@ -119,24 +115,36 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/schart/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/schart/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/schart/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/schart/anaconda3/bin:$PATH"
+###################
+# CUSTOM SETTINGS #
+###################
+
+# Colors
+blk='\[\033[01;30m\]'   # Black
+red='\[\033[01;31m\]'   # Red
+grn='\[\033[01;32m\]'   # Green
+ylw='\[\033[01;33m\]'   # Yellow
+blu='\[\033[01;34m\]'   # Blue
+pur='\[\033[01;35m\]'   # Purple
+cyn='\[\033[01;36m\]'   # Cyan
+wht='\[\033[01;37m\]'   # White
+clr='\[\033[00m\]'      # Reset
+
+# enable vim editing on the command line
+set -o vi
+
+# Display the current Git branch in the Bash prompt.
+function git_branch() {
+    if [ -d .git ] ; then
+        printf "%s" "($(git branch 2> /dev/null | awk '/\*/{print $2}'))";
     fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+}
 
-# pyenv initialization
-export PATH="/home/schart/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# Set the prompt.
+
+function bash_prompt(){
+    PS1='${debian_chroot:+($debian_chroot)}'${blu}'$(git_branch)'${pur}' \W'${grn}' \$ '${clr}
+}
+
+bash_prompt
