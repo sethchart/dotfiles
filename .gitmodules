@@ -1,3 +1,6 @@
 [submodule "vim/.vim/pack/vendor/start/nerdtree"]
 	path = vim/.vim/pack/vendor/start/nerdtree
 	url = https://github.com/preservim/nerdtree
+[submodule "vim/.vim/pack/vendor/start/jedi-vim"]
+	path = vim/.vim/pack/vendor/start/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
