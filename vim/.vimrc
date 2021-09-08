@@ -51,3 +51,6 @@ set nu
 
 " Turn on spell check
 set spell
+
+" Set pydocstring style
+let g:pydocstring_formatter = "numpy"
