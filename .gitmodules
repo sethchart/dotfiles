@@ -7,3 +7,6 @@
 [submodule "vim/.vim/pack/vendor/start/vim-pydocstring"]
 	path = vim/.vim/pack/vendor/start/vim-pydocstring
 	url = https://github.com/heavenshell/vim-pydocstring.git
+[submodule "vim/.vim/pack/vendor/start/indentpython.vim"]
+	path = vim/.vim/pack/vendor/start/indentpython.vim
+	url = https://github.com/vim-scripts/indentpython.vim.git
