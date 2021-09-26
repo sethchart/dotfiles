@@ -54,3 +54,6 @@ set spell
 
 " Set pydocstring style
 let g:pydocstring_formatter = "numpy"
+
+" Set color scheme
+colorscheme pablo
