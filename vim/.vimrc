@@ -34,7 +34,7 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/ 
 
 " Indenting for web development
-au BufNewFile,BufRead *.js, *.html, *.css, *.md
+au BufNewFile,BufRead *.js,*.html,*.css,*.md,*.toml
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
