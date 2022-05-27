@@ -9,7 +9,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'davidhalter/jedi-vim'
-
+Plugin 'heavenshell/vim-pydocstring'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -47,7 +47,7 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/ 
 
 " Indenting for web development
-au BufNewFile,BufRead *.js,*.html,*.css,*.md,*.toml
+au BufNewFile,BufRead *.js,*.html,*.css,*.md,*.toml,*.json
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2
