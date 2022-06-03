@@ -10,27 +10,35 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
+Plugin 'psf/black'
+Plugin 'vim-syntastic/syntastic'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" Set split behavior
-set splitbelow
-set splitright
+" Enable backspacing in insert mode.
+set backspace=indent,eol,start
 
-"split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Set leader key to space
+let mapleader = ' '
+
+" Set split behavior
+set splitright
+set splitbelow
+
+" Split navigations
+nnoremap <leader>j <C-W><C-J>
+nnoremap <leader>k <C-W><C-K>
+nnoremap <leader>l <C-W><C-L>
+nnoremap <leader>h <C-W><C-H>
 
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
 
 " Enable folding with the spacebar
-nnoremap <space> za
+nnoremap <leader>f za
 
 " PEP 8 indentation for python.
 au BufNewFile,BufRead *.py
@@ -67,6 +75,19 @@ set spell
 
 " Set pydocstring style
 let g:pydocstring_formatter = "numpy"
+
+"Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['mypy', 'pycodestyle']
+let g:syntastic_python_pycodestyle_args= '--max-line-length=88'
 
 " Set color scheme
 colorscheme pablo
