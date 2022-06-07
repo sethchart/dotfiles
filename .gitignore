@@ -1,5 +1,2 @@
-# Ignore installed bundles
-vim/.vim/bundle
-
 # Ignore .netrwhist
 vim/.vim/.netrwhist
