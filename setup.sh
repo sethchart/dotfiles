@@ -1,3 +1,4 @@
+cd ~
 git clone https://github.com/sethchart/dotfiles.git
 git clone https://github.com/VundleVim/Vundle.vim.git ~/dotfiles/vim/.vim/bundle/Vundle.vim
 sudo apt install stow
