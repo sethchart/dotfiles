@@ -58,7 +58,10 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 au BufNewFile,BufRead *.js,*.html,*.css,*.md,*.toml,*.json
     \ set tabstop=2 |
     \ set softtabstop=2 |
-    \ set shiftwidth=2
+    \ set shiftwidth=2 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix
 
 " Require UTF-8 encoding
 set encoding=utf-8
@@ -87,7 +90,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['mypy', 'pycodestyle']
-let g:syntastic_python_pycodestyle_args= '--max-line-length=88'
+let g:syntastic_python_pycodestyle_args= '--max-line-length=90'
+let g:syntastic_python_mypy_args= '--ignore-missing-imports'
 
 " Set color scheme
 colorscheme pablo
