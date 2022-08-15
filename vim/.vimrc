@@ -32,6 +32,7 @@ nnoremap <leader>j <C-W><C-J>
 nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
+nnoremap <leader>b :Black<CR>
 
 " Enable folding
 set foldmethod=indent
@@ -88,6 +89,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['mypy', 'pycodestyle']
 let g:syntastic_python_pycodestyle_args= '--max-line-length=88'
+let g:syntastic_python_mypy_args= '--ignore-missing-imports'
 
 " Set color scheme
 colorscheme pablo
