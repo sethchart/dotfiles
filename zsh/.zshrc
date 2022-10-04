@@ -106,3 +106,6 @@ export PATH="/usr/local/opt/postgresql@11/bin:$PATH"
 # Created by `pipx` on 2022-05-12 18:12:15
 export PATH="$PATH:/Users/schart/.local/bin"
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+# Auto completion for pipx
+eval "$(register-python-argcomplete pipx)"
