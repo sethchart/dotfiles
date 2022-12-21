@@ -93,6 +93,3 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['mypy', 'pycodestyle']
 let g:syntastic_python_pycodestyle_args= '--max-line-length=90'
 let g:syntastic_python_mypy_args= '--ignore-missing-imports'
-
-" Set color scheme
-colorscheme pablo
