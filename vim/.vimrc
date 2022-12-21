@@ -8,6 +8,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'vim-test/vim-test'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'psf/black'
@@ -33,6 +34,13 @@ nnoremap <leader>k <C-W><C-K>
 nnoremap <leader>l <C-W><C-L>
 nnoremap <leader>h <C-W><C-H>
 nnoremap <leader>b :Black<CR>
+
+" vim-test mappings
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>l :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " Enable folding
 set foldmethod=indent
