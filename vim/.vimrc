@@ -48,11 +48,19 @@ set splitbelow
 " Explicitly activating optional packages
 packadd! black
 packadd! jedi-vim
+packadd! vim-test
 
 
 " Add formatting shortcut for python files
 au FileType python nnoremap <leader>f :Black<CR>
 
+
+" Add leader shortcuts for vim-test
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 " Activate file type plugins and indentation
 filetype plugin indent on
