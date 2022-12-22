@@ -4,3 +4,6 @@
 [submodule "jedi-vim"]
 	path = vim/.vim/pack/plugin/opt/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim
+[submodule "vim-test"]
+	path = vim/.vim/pack/plugin/opt/vim-test
+	url = https://github.com/vim-test/vim-test
