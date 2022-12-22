@@ -18,6 +18,7 @@ See this [link](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-man
 ### Plugins
   - [black](https://github.com/psf/black)
   - [jedi-vim](https://github.com/davidhalter/jedi-vim)
+  - [vim-test](https://github.com/vim-test/vim-test)
 
 ## Bash
 
