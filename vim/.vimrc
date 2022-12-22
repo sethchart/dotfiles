@@ -47,6 +47,7 @@ set splitbelow
 
 " Explicitly activating optional packages
 packadd! black
+packadd! jedi-vim
 
 
 " Add formatting shortcut for python files
