@@ -7,3 +7,6 @@
 [submodule "vim-test"]
 	path = vim/.vim/pack/plugin/opt/vim-test
 	url = https://github.com/vim-test/vim-test
+[submodule "vim-pydocstring"]
+	path = vim/.vim/pack/plugin/opt/vim-pydocstring
+	url = https://github.com/heavenshell/vim-pydocstring

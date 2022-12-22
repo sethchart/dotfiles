@@ -49,6 +49,7 @@ set splitbelow
 packadd! black
 packadd! jedi-vim
 packadd! vim-test
+packadd! vim-pydocstring
 
 
 " Add formatting shortcut for python files
@@ -61,6 +62,9 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
+" Set docstring format to numpy
+let g:pydocstring_formatter = 'numpy'
 
 " Activate file type plugins and indentation
 filetype plugin indent on
