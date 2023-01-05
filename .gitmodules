@@ -10,3 +10,6 @@
 [submodule "vim-pydocstring"]
 	path = vim/.vim/pack/plugin/opt/vim-pydocstring
 	url = https://github.com/heavenshell/vim-pydocstring
+[submodule "ale"]
+	path = vim/.vim/pack/plugin/opt/ale
+	url = https://github.com/dense-analysis/ale.git
