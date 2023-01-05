@@ -31,7 +31,6 @@ au BufRead,BufNewFile * match BadWhitespace /\s\+$/
 
 " Set leader key to space
 let mapleader = ' '
- j
 
 " Split navigation with leader
 nnoremap <leader>j <C-W><C-J>
