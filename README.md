@@ -16,6 +16,24 @@ See this [link](http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-man
 ## Vim
 
 ### Plugins
+This [video](https://www.youtube.com/watch?v=X2_R3uxDN6g) describes vim plugin management.
+
+#### Adding Plugins from GitHub
+To add a new plugin:
+  1. Add the plugin repo to dotfiles as a submodule:
+  ```shell
+  cd ~/dotfiles
+  git submodule add \
+  --name <plugin-name> \
+  <plugin-url> \
+  /vim/.vim/pack/plugin/opt/<plugin-name>
+  ```
+  2. Activate the plugin in `.vimrc`:
+  ```vim
+  packadd! <plugin-name>
+  ```
+
+#### Installed Plugins
   - [black](https://github.com/psf/black)
   - [jedi-vim](https://github.com/davidhalter/jedi-vim)
   - [vim-test](https://github.com/vim-test/vim-test)
