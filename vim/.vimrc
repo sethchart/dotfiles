@@ -50,6 +50,7 @@ set splitbelow
 packadd! black
 packadd! jedi-vim
 packadd! vim-test
+packadd! fzf
 
 " Add formatting shortcut for python files
 au FileType python nnoremap <leader>f :Black<CR>
