@@ -1,3 +1,8 @@
+# fzf configuration
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_OPTS='-m'
+fi
 # Enable the subsequent settings only in interactive sessions
 case $- in
   *i*) ;;

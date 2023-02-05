@@ -1,6 +1,8 @@
 " Always using vim no need for vi compatibility
 set nocompatible
 
+" Don't require save to leave buffer
+set hidden
 
 " Require UTF-8 encoding
 set encoding=utf-8
