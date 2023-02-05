@@ -26,7 +26,7 @@ To add a new plugin:
   git submodule add \
   --name <plugin-name> \
   <plugin-url> \
-  /vim/.vim/pack/plugin/opt/<plugin-name>
+  vim/.vim/pack/plugin/opt/<plugin-name>
   ```
   2. Activate the plugin in `.vimrc`:
   ```vim
@@ -42,6 +42,7 @@ To add a new plugin:
   cd ~/dotfiles/vim/.vim/pack/plugin/opt/vim-pydocstring
   make install
   ```
+  - [fzf](https://github.com/junegunn/fzf/blob/master/README-VIM.md)
 
 ## Bash
 
