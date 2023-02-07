@@ -1,11 +1,17 @@
 " Always using vim no need for vi compatibility
 set nocompatible
 
+
 " Don't require save to leave buffer
 set hidden
 
+
 " Require UTF-8 encoding
 set encoding=utf-8
+
+
+"Use ripgrep for searching
+set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 
 
 " Enable backspacing in insert mode.
