@@ -72,6 +72,9 @@ nmap <silent> <leader>g :TestVisit<CR>
 " Set docstring format to numpy
 let g:pydocstring_formatter = 'numpy'
 
+" Set vim-test command line options
+let g:test#python#pytest#options = '-vv'
+
 " Activate file type plugins, indentation, and syntax highlighting.
 filetype plugin indent on
 syntax on
