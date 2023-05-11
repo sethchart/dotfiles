@@ -62,6 +62,7 @@ packadd! jedi-vim
 packadd! vim-test
 packadd! vim-table-mode
 packadd! fzf
+packadd! fzf-vim
 
 " Add formatting shortcut for python files
 au FileType python nnoremap <leader>f :Black<CR>
