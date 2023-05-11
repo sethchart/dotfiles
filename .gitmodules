@@ -16,3 +16,6 @@
 [submodule "fzf"]
 	path = vim/.vim/pack/plugin/opt/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "vim-table-mode"]
+	path = vim/.vim/pack/plugin/opt/vim-table-mode
+	url = https://github.com/dhruvasagar/vim-table-mode.git
