@@ -60,6 +60,7 @@ set splitbelow
 packadd! black
 packadd! jedi-vim
 packadd! vim-test
+packadd! vim-table-mode
 packadd! fzf
 
 " Add formatting shortcut for python files
