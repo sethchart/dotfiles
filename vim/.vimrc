@@ -63,6 +63,7 @@ packadd! vim-test
 packadd! vim-table-mode
 packadd! fzf
 packadd! fzf-vim
+packadd! vim-pydocstring
 
 " Add formatting shortcut for python files
 au FileType python nnoremap <leader>f :Black<CR>
