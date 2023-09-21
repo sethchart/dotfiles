@@ -25,8 +25,8 @@ set nu
 " Turn on spell check
 set spell
 
-" Do not expand tabs to spaces
-set noexpandtab
+" Set Expand Tab
+set expandtab
 " Set the number of spaces to use for each step of indent
 set shiftwidth=2
 " Set the number of spaces to display in vim for a tab
@@ -57,17 +57,20 @@ set splitbelow
 
 
 " Explicitly activating optional packages
+packadd! ale
 packadd! black
-packadd! jedi-vim
-packadd! vim-test
-packadd! vim-table-mode
 packadd! fzf
 packadd! fzf-vim
+packadd! jedi-vim
+packadd! vim-table-mode
+packadd! vim-test
 packadd! vim-pydocstring
+
+" Configure ALE
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['prettier', 'eslint'] }
 
 " Add formatting shortcut for python files
 au FileType python nnoremap <leader>f :Black<CR>
-
 
 " Add leader shortcuts for vim-test
 nmap <silent> <leader>t :TestNearest<CR>
