@@ -34,4 +34,3 @@ fpath+=~/.zfunc
 # Environment Variables
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-20.jdk/Contents/Home
 export GITHUB_USER=sethchart
-export GITHUB_TOKEN=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
