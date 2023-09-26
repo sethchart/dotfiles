@@ -58,7 +58,6 @@ set splitbelow
 
 " Explicitly activating optional packages
 packadd! ale
-packadd! black
 packadd! fzf
 packadd! fzf-vim
 packadd! jedi-vim
@@ -67,10 +66,15 @@ packadd! vim-test
 packadd! vim-pydocstring
 
 " Configure ALE
-let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'javascript': ['prettier', 'eslint'] }
+let g:ale_completion_enabled=1
+let g:ale_fixers = {
+      \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'javascript': ['prettier', 'eslint'],
+      \'python': ['black', 'ruff', 'isort']
+      \}
 
-" Add formatting shortcut for python files
-au FileType python nnoremap <leader>f :Black<CR>
+" Add leader shortcuts for ALE
+nnoremap <leader>f :ALEFix<CR>
 
 " Add leader shortcuts for vim-test
 nmap <silent> <leader>t :TestNearest<CR>
