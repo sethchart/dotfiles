@@ -1,3 +1,16 @@
+# pgcli aliases
+citus() {
+  if [ "$1" = "prod" ]
+  then
+    pgcli -h citus.prod.pg.kollective.app -U schart -d citus
+  elif [ "$1" = "stage" ]
+  then
+    pgcli -h citus.stage.pg.kollective.app -U citus -d citus-stage
+  else
+    echo "Please provide an environment. (prod/stage)"
+  fi
+}
+
 # Oh My ZSH
 ## Configuration
 export ZSH="$HOME/.oh-my-zsh"
@@ -34,3 +47,4 @@ fpath+=~/.zfunc
 # Environment Variables
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-20.jdk/Contents/Home
 export GITHUB_USER=sethchart
+
