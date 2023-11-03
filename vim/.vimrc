@@ -61,7 +61,8 @@ let g:ale_completion_enabled=1
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
       \'javascript': ['prettier', 'eslint'],
-      \'python': ['black', 'ruff', 'isort']
+      \'python': ['black', 'ruff'],
+      \'md': ["markdownlint"]
       \}
 
 " Add leader shortcuts for ALE
