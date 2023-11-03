@@ -45,6 +45,8 @@ zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
 # Environment Variables
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-20.jdk/Contents/Home
+export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
 export GITHUB_USER=sethchart
+
+fpath+=/usr/local/share/zsh/site-functions
 
