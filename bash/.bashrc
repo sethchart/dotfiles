@@ -11,7 +11,7 @@ esac
 
 # Oh My Bash
 export OSH=/home/seth/.oh-my-bash
-OSH_THEME="bobby-python"
+OSH_THEME="powerline"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
 OMB_USE_SUDO=true
@@ -35,3 +35,5 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='mvim'
 fi
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
