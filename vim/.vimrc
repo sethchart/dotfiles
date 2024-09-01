@@ -61,9 +61,16 @@ let g:ale_completion_enabled=1
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
       \'javascript': ['prettier', 'eslint'],
+      \'json': ['jq'],
+      \'yaml': ['yamlfix'],
       \'python': ['black', 'ruff'],
       \'md': ["markdownlint"]
       \}
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Add leader shortcuts for ALE
 nnoremap <leader>f :ALEFix<CR>
@@ -76,7 +83,7 @@ nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
 " Set docstring format to numpy
-let g:pydocstring_formatter = 'numpy'
+let g:pydocstring_formatter = 'sphinx'
 
 " Set vim-test command line options
 let g:test#python#pytest#options = '-vv'
