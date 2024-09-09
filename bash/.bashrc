@@ -33,7 +33,7 @@ export LANG=en_US.UTF-8
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='mvim'
+  export EDITOR='vim'
 fi
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
