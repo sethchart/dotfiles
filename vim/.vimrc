@@ -63,7 +63,7 @@ let g:ale_fixers = {
       \'javascript': ['prettier', 'eslint'],
       \'json': ['jq'],
       \'yaml': ['yamlfix'],
-      \'python': ['black', 'ruff'],
+      \'python': ['ruff_format'],
       \'md': ["markdownlint"]
       \}
 let g:ale_echo_msg_error_str = 'E'
