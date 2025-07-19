@@ -49,6 +49,7 @@ set splitbelow
 
 " Explicitly activating optional packages
 packadd! ale
+packadd! copilot
 packadd! fzf
 packadd! fzf-vim
 packadd! jedi-vim
@@ -86,7 +87,7 @@ nmap <silent> <leader>g :TestVisit<CR>
 let g:pydocstring_formatter = 'sphinx'
 
 " Set vim-test command line options
-let g:test#python#pytest#options = '-vv'
+let g:test#uv#pytest#options = '-vv'
 
 " Activate file type plugins, indentation, and syntax highlighting.
 filetype plugin indent on

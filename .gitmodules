@@ -1,15 +1,6 @@
-[submodule "black"]
-	path = vim/.vim/pack/plugin/opt/black
-	url = https://github.com/psf/black
-[submodule "jedi-vim"]
-	path = vim/.vim/pack/plugin/opt/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim
 [submodule "vim-test"]
 	path = vim/.vim/pack/plugin/opt/vim-test
 	url = https://github.com/vim-test/vim-test
-[submodule "vim-pydocstring"]
-	path = vim/.vim/pack/plugin/opt/vim-pydocstring
-	url = https://github.com/heavenshell/vim-pydocstring
 [submodule "ale"]
 	path = vim/.vim/pack/plugin/opt/ale
 	url = https://github.com/dense-analysis/ale.git
@@ -22,3 +13,6 @@
 [submodule "fzf-vim"]
 	path = vim/.vim/pack/plugin/opt/fzf-vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "copilot"]
+	path = vim/.vim/pack/plugin/opt/copilot
+	url = https://github.com/github/copilot.vim.git
