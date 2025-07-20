@@ -14,10 +14,14 @@ set grepprg=rg\ --vimgrep\ --smart-case\ --follow
 set backspace=indent,eol,start
 
 " Add line numbering
-set nu
+set number
 
 " Turn on spell check
 set spell
+
+" Make spellcheck underline misspellings
+hi clear SpellBad
+hi SpellBad cterm=underline,bold ctermfg=red
 
 " Set Expand Tab
 set expandtab
@@ -52,26 +56,18 @@ packadd! ale
 packadd! copilot
 packadd! fzf
 packadd! fzf-vim
-packadd! jedi-vim
 packadd! vim-table-mode
 packadd! vim-test
-packadd! vim-pydocstring
 
 " Configure ALE
 let g:ale_completion_enabled=1
-let g:ale_fixers = {
-      \'*': ['remove_trailing_lines', 'trim_whitespace'],
-      \'javascript': ['prettier', 'eslint'],
-      \'json': ['jq'],
-      \'yaml': ['yamlfix'],
-      \'python': ['ruff_format'],
-      \'md': ["markdownlint"]
-      \}
+let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <leader>d :ALEGoToDefinition<CR>
 
 " Add leader shortcuts for ALE
 nnoremap <leader>f :ALEFix<CR>
@@ -83,8 +79,6 @@ nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
-" Set docstring format to numpy
-let g:pydocstring_formatter = 'sphinx'
 
 " Set vim-test command line options
 let g:test#uv#pytest#options = '-vv'
@@ -93,6 +87,3 @@ let g:test#uv#pytest#options = '-vv'
 filetype plugin indent on
 syntax on
 
-" Make spellcheck underline misspellings
-hi clear SpellBad
-hi SpellBad cterm=underline,bold ctermfg=red
