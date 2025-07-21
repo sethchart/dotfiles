@@ -61,6 +61,7 @@ packadd! vim-test
 
 " Configure ALE
 let g:ale_completion_enabled=1
+let g:ale_set_ballons=1
 let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -68,6 +69,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <leader>d :ALEGoToDefinition<CR>
+nmap <leader>r :ALEGoToReferences<CR>
+nmap <leader>i :ALEHover<CR>
 
 " Add leader shortcuts for ALE
 nnoremap <leader>f :ALEFix<CR>
