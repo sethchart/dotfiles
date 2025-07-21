@@ -91,4 +91,6 @@ filetype plugin indent on
 syntax on
 
 " Setup status line
-set statusline=%{FugitiveStatusline()}\ %f
+set noruler
+set laststatus=2
+set statusline=%{FugitiveStatusline()}\ %f\ %y\ editing\ line\ %-4l/\ %-4L
