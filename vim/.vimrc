@@ -58,6 +58,7 @@ packadd! fzf
 packadd! fzf-vim
 packadd! vim-table-mode
 packadd! vim-test
+packadd! vim-fugitive
 
 " Configure ALE
 let g:ale_completion_enabled=1
@@ -80,7 +81,6 @@ nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
 
 
 " Set vim-test command line options
@@ -90,3 +90,5 @@ let g:test#uv#pytest#options = '-vv'
 filetype plugin indent on
 syntax on
 
+" Setup status line
+set statusline=%{FugitiveStatusline()}\ %f

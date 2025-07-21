@@ -16,3 +16,6 @@
 [submodule "copilot"]
 	path = vim/.vim/pack/plugin/opt/copilot
 	url = https://github.com/github/copilot.vim.git
+[submodule "vim-fugitive"]
+	path = vim/.vim/pack/plugin/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
