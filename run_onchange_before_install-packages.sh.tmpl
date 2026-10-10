@@ -1,0 +1,37 @@
+#!/bin/bash
+# Install packages listed in .chezmoidata/packages.yaml that aren't installed yet.
+# chezmoi re-runs this whenever the rendered list below changes.
+set -euo pipefail
+
+pkgs=(
+{{- range .packages.common }}
+  {{ . | quote }}
+{{- end }}
+{{- range (index .packages .chezmoi.hostname | default list) }}
+  {{ . | quote }}
+{{- end }}
+)
+aur=(
+{{- range .packages.aur }}
+  {{ . | quote }}
+{{- end }}
+)
+
+case $(grep -m1 '^vendor_id' /proc/cpuinfo) in
+  *GenuineIntel*) pkgs+=(intel-ucode) ;;
+  *AuthenticAMD*) pkgs+=(amd-ucode) ;;
+esac
+
+sudo pacman -S --needed "${pkgs[@]}"
+
+# yay isn't in the official repos: build it from the AUR if missing
+if ! command -v yay >/dev/null; then
+  tmp=$(mktemp -d)
+  git clone https://aur.archlinux.org/yay-bin.git "$tmp/yay-bin"
+  (cd "$tmp/yay-bin" && makepkg -si --noconfirm)
+  rm -rf "$tmp"
+fi
+
+if (( ${#aur[@]} )); then
+  yay -S --needed "${aur[@]}"
+fi

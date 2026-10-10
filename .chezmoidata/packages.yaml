@@ -1,0 +1,66 @@
+# Packages installed by run_onchange_before_install-packages.sh.tmpl.
+# Editing this list makes the next `chezmoi apply` install whatever is missing.
+# CPU microcode (intel-ucode / amd-ucode) is picked automatically.
+packages:
+  # Every machine
+  common:
+    # system
+    - base
+    - base-devel
+    - linux
+    - linux-firmware
+    - sudo
+    - pacman-contrib
+    - reflector
+    - man-db
+    - openssh
+    - iwd
+    - bluez
+    - bluez-utils
+    # desktop
+    - sway
+    - swaybg
+    - swayidle
+    - swaylock
+    - fuzzel
+    - mako
+    - foot
+    - xdg-desktop-portal-wlr
+    - xdg-utils
+    - wl-clipboard
+    - grim
+    - slurp
+    # audio
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - playerctl
+    # fonts
+    - noto-fonts
+    - noto-fonts-emoji
+    - terminus-font
+    - ttf-jetbrains-mono-nerd
+    # tools
+    - chezmoi
+    - git
+    - github-cli
+    - neovim
+    - vim
+    - tmux
+    - ripgrep
+    - fd
+    - btop
+    - unzip
+    # apps
+    - firefox
+    - signal-desktop
+    - imv
+    - mpv
+    - zathura
+    - zathura-pdf-mupdf
+  # Only on the machine with this hostname
+  laptop:
+    - brightnessctl
+  desktop: []
+  # From the AUR, via yay
+  aur: []
