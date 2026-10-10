@@ -1,0 +1,39 @@
+# Status bar for swaybar (status_command in ~/.config/sway/config)
+
+[theme]
+theme = "plain"
+[theme.overrides]
+idle_bg = "#1e2030"
+idle_fg = "#a9b1d6"
+info_bg = "#1e2030"
+info_fg = "#a9b1d6"
+good_bg = "#1e2030"
+good_fg = "#a9b1d6"
+warning_bg = "#e8955a"
+warning_fg = "#1e2030"
+critical_bg = "#e05561"
+critical_fg = "#1e2030"
+separator = " "
+
+[icons]
+icons = "material-nf"
+
+[[block]]
+block = "net"
+format = " $icon {$ssid|wired} "
+
+[[block]]
+block = "sound"
+{{- if eq .chezmoi.hostname "laptop" }}
+
+[[block]]
+block = "backlight"
+
+[[block]]
+block = "battery"
+{{- end }}
+
+[[block]]
+block = "time"
+interval = 10
+format = " $timestamp.datetime(f:'%a %d %b  %H:%M') "

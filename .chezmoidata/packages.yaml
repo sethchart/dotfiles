@@ -15,8 +15,12 @@ packages:
     - man-db
     - openssh
     - iwd
+    - impala
     - bluez
     - bluez-utils
+    - bluetui
+    - power-profiles-daemon
+    - udiskie
     # desktop
     - sway
     - swaybg
@@ -30,6 +34,11 @@ packages:
     - wl-clipboard
     - grim
     - slurp
+    - swappy
+    - wob
+    - wlsunset
+    - cliphist
+    - i3status-rust
     # audio
     - pipewire
     - pipewire-pulse
@@ -47,6 +56,8 @@ packages:
     - neovim
     - vim
     - tmux
+    - bash-completion
+    - fzf
     - ripgrep
     - fd
     - btop

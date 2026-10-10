@@ -1,0 +1,17 @@
+#!/bin/bash
+# System settings outside the home directory (needs sudo).
+# chezmoi re-runs this whenever the rendered script changes.
+set -euo pipefail
+
+# Power profiles (powerprofilesctl set power-saver|balanced|performance)
+sudo systemctl enable --now power-profiles-daemon.service
+{{- if eq .chezmoi.hostname "laptop" }}
+
+# Power button hibernates; closing the lid suspends, then hibernates after 2 hours
+sudo mkdir -p /etc/systemd/logind.conf.d /etc/systemd/sleep.conf.d
+printf '[Login]\nHandlePowerKey=hibernate\n' | sudo tee /etc/systemd/logind.conf.d/power-key.conf >/dev/null
+printf '[Login]\nHandleLidSwitch=suspend-then-hibernate\n' | sudo tee /etc/systemd/logind.conf.d/lid.conf >/dev/null
+printf '[Sleep]\nHibernateDelaySec=2h\n' | sudo tee /etc/systemd/sleep.conf.d/hibernate-delay.conf >/dev/null
+# Reload logind's settings (a restart would end the session)
+sudo systemctl kill -s HUP systemd-logind
+{{- end }}
