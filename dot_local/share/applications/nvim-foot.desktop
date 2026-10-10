@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Neovim (foot)
+Comment=Edit text files in Neovim inside a foot terminal
+Exec=foot nvim %f
+Terminal=false
+NoDisplay=true
+MimeType=text/plain;

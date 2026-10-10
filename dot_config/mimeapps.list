@@ -1,0 +1,24 @@
+[Default Applications]
+text/plain=nvim-foot.desktop
+text/markdown=nvim-foot.desktop
+text/x-shellscript=nvim-foot.desktop
+application/x-shellscript=nvim-foot.desktop
+text/x-python=nvim-foot.desktop
+application/json=nvim-foot.desktop
+application/toml=nvim-foot.desktop
+application/x-yaml=nvim-foot.desktop
+text/csv=nvim-foot.desktop
+text/html=firefox.desktop
+application/pdf=org.pwmt.zathura.desktop
+application/epub+zip=org.pwmt.zathura.desktop
+image/png=imv.desktop
+image/jpeg=imv.desktop
+image/gif=imv.desktop
+image/webp=imv.desktop
+image/svg+xml=imv.desktop
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
