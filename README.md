@@ -1,7 +1,7 @@
 # dotfiles
 
 My Arch Linux + sway configs, managed with [chezmoi](https://www.chezmoi.io/)
-and shared between `laptop` and `desktop`.
+and shared between `laptop` and `workstation`.
 
 ## New machine
 
@@ -25,8 +25,10 @@ sudo password), builds yay if needed, then writes the configs.
 ## Packages
 
 `.chezmoidata/packages.yaml` lists packages for every machine (`common`),
-per-hostname extras (`laptop`, `desktop`) and AUR packages (`aur`). After
-editing it, `chezmoi apply` installs anything missing. Nothing is ever removed.
+per-hostname extras (`laptop`, `workstation`), AUR packages (`aur`, same
+shape) and packages to uninstall (`remove`). After editing it, `chezmoi apply`
+installs anything missing and uninstalls anything on `remove`; packages that
+are simply dropped from the list stay installed.
 
 To spot packages installed but not in the list:
 

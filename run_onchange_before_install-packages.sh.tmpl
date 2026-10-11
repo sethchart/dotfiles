@@ -12,7 +12,15 @@ pkgs=(
 {{- end }}
 )
 aur=(
-{{- range .packages.aur }}
+{{- range .packages.aur.common }}
+  {{ . | quote }}
+{{- end }}
+{{- range (index .packages.aur .chezmoi.hostname | default list) }}
+  {{ . | quote }}
+{{- end }}
+)
+remove=(
+{{- range .packages.remove }}
   {{ . | quote }}
 {{- end }}
 )
@@ -34,4 +42,10 @@ fi
 
 if (( ${#aur[@]} )); then
   yay -S --needed "${aur[@]}"
+fi
+
+# Uninstall anything on the remove list that's still here
+installed=$(pacman -Qq "${remove[@]}" 2>/dev/null || true)
+if [[ -n $installed ]]; then
+  sudo pacman -Rns $installed
 fi

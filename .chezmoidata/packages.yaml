@@ -76,6 +76,16 @@ packages:
   # Only on the machine with this hostname
   laptop:
     - brightnessctl
-  desktop: []
-  # From the AUR, via yay
-  aur: []
+  workstation: []
+  # From the AUR, via yay: every machine, then per hostname
+  aur:
+    common: []
+    workstation:
+      - chrysalis-bin
+  # Uninstalled (with their unneeded dependencies) wherever they're present
+  remove:
+    - zoom
+    - aws-cli
+    - wofi
+    - dmidecode
+    - yay-debug

@@ -1,3 +1,27 @@
 # Old configs that would shadow managed ones; chezmoi apply deletes them
 .tmux.conf
 .config/tmux/status_segments.sh
+
+# Pre-chezmoi leftovers: old bash snippets and gitconfig (replaced by the
+# managed .bashrc and ~/.config/git/config), vim, wallpaper, backups
+.config/bash
+.bashrc-snowflake.bak
+.gitconfig
+.vim
+.viminfo
+Pictures/wallpapers
+dotfiles-pre-chezmoi-backup
+
+# Uninstalled tools: snowsql, uv (standalone installer), zoom
+bin/snowsql
+.snowsql
+.local/bin/uv
+.local/bin/uvx
+.local/share/uv
+.config/uv
+.cache/uv
+.zoom
+.config/zoom
+.config/zoom.conf
+.config/zoomus.conf
+.local/share/applications/Zoom.desktop
