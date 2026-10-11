@@ -5,6 +5,15 @@ set -euo pipefail
 
 # Power profiles (powerprofilesctl set power-saver|balanced|performance)
 sudo systemctl enable --now power-profiles-daemon.service
+
+# keyd: Super acts as Ctrl for copy/paste/cut/select-all/undo, Mac style.
+# Per-app overrides live in ~/.config/keyd/app.conf (keyd-application-mapper,
+# which needs the keyd group to reach the daemon's socket).
+sudo mkdir -p /etc/keyd
+printf '[ids]\n*\n\n[main]\nleftmeta = layer(meta)\n\n[meta:C]\nc = C-c\nv = C-v\nx = C-x\na = C-a\nz = C-z\n\n' | sudo tee /etc/keyd/default.conf >/dev/null
+sudo systemctl enable --now keyd.service
+sudo keyd reload
+sudo usermod -aG keyd "$USER"
 {{- if eq .chezmoi.hostname "laptop" }}
 
 # Power button hibernates; closing the lid suspends, then hibernates after 2 hours

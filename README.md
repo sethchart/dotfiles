@@ -47,3 +47,7 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
 - sway (config, keybinding cheat sheet, file picker), tmux, Neovim, bash
 - PipeWire audio quality settings, default apps, GTK dark mode
 - `run_once_set-dark-mode.sh` sets the dark-mode preference once per machine
+- keyd: Super+C/V/X/A/Z act as Ctrl (system config in `run_onchange_after_system-settings.sh.tmpl`,
+  per-app overrides in `~/.config/keyd/app.conf`)
+- `run_once_after_install-claude-code.sh` installs Claude Code with its native installer;
+  opencode comes from the package list

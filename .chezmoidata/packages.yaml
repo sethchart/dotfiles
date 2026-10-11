@@ -22,6 +22,8 @@ packages:
     - bluetui
     - power-profiles-daemon
     - udiskie
+    - keyd
+    - gnome-keyring
     # desktop
     - sway
     - swaybg
@@ -62,6 +64,7 @@ packages:
     - ripgrep
     - fd
     - btop
+    - opencode
     - unzip
     # apps
     - firefox

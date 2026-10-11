@@ -238,12 +238,12 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/scripts/osd.sh brightness down
     bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/scripts/osd.sh brightness up
 
-    # Screenshots: Print saves the whole screen to ~/Pictures/Screenshots,
-    # Shift+Print copies a selected region to the clipboard
-    bindsym Print exec mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
-    bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy
-    # $mod+Print: select a region and annotate/crop it in swappy before saving
-    bindsym $mod+Print exec grim -g "$(slurp)" - | swappy -f -
+    # Screenshots: $mod+p saves the whole screen to ~/Pictures/Screenshots,
+    # $mod+Shift+p copies a selected region to the clipboard
+    bindsym $mod+p exec mkdir -p ~/Pictures/Screenshots && grim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png
+    bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
+    # $mod+Ctrl+p: select a region and annotate/crop it in swappy before saving
+    bindsym $mod+Ctrl+p exec grim -g "$(slurp)" - | swappy -f -
 
     # Background services (started once at login)
     exec mako
@@ -257,6 +257,10 @@ bindsym $mod+r mode "resize"
     exec udiskie
     # Signal, hidden in the bar's tray so its notifications reach mako
     exec signal-desktop --start-in-tray
+    # Per-app key remaps from ~/.config/keyd/app.conf (e.g. Super+C/V in foot)
+    exec keyd-application-mapper -d
+    # Secrets storage and ssh-agent
+    exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
 
 # Let apps bring themselves to the front, e.g. clicking a Signal notification
 focus_on_window_activation focus
