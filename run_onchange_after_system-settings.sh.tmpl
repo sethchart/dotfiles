@@ -8,7 +8,8 @@ set -euo pipefail
 # fight iwd for the Wi-Fi card, so it is removed if present.
 sudo mkdir -p /etc/iwd /etc/systemd/network
 printf '[General]\nEnableNetworkConfiguration=true\n\n[Network]\nNameResolvingService=systemd\n' | sudo tee /etc/iwd/main.conf >/dev/null
-printf '[Match]\nType=ether\n\n[Network]\nDHCP=yes\n' | sudo tee /etc/systemd/network/20-wired.network >/dev/null
+# RequiredForOnline=no: an unplugged cable shouldn't stall boot in networkd-wait-online
+printf '[Match]\nType=ether\n\n[Link]\nRequiredForOnline=no\n\n[Network]\nDHCP=yes\n' | sudo tee /etc/systemd/network/20-wired.network >/dev/null
 if pacman -Q networkmanager &>/dev/null; then
   sudo systemctl disable --now NetworkManager.service NetworkManager-wait-online.service NetworkManager-dispatcher.service
   sudo pacman -Rns --noconfirm networkmanager

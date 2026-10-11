@@ -49,14 +49,20 @@ if (( ${#aur[@]} )); then
   yay -S --needed "${aur[@]}"
 fi
 
-# Mark these as dependencies so they show up as orphans once nothing needs them
-explicit=$(pacman -Qqe "${asdeps[@]}" 2>/dev/null || true)
-if [[ -n $explicit ]]; then
-  sudo pacman -D --asdeps $explicit
+# Mark these as dependencies so they show up as orphans once nothing needs them.
+# (Guard on the list: `pacman -Qqe` with no names lists every explicit package.)
+if (( ${#asdeps[@]} )); then
+  explicit=$(pacman -Qqe "${asdeps[@]}" 2>/dev/null || true)
+  if [[ -n $explicit ]]; then
+    sudo pacman -D --asdeps $explicit
+  fi
 fi
 
-# Uninstall anything on the remove list that's still here
-installed=$(pacman -Qq "${remove[@]}" 2>/dev/null || true)
-if [[ -n $installed ]]; then
-  sudo pacman -Rns $installed
+# Uninstall anything on the remove list that's still here.
+# (Guard on the list: `pacman -Qq` with no names lists every installed package.)
+if (( ${#remove[@]} )); then
+  installed=$(pacman -Qq "${remove[@]}" 2>/dev/null || true)
+  if [[ -n $installed ]]; then
+    sudo pacman -Rns $installed
+  fi
 fi
