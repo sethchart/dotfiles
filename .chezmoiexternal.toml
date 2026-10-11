@@ -1,0 +1,12 @@
+# Third-party plugins cloned by chezmoi; updated at most weekly on `chezmoi apply`.
+
+# tmux: save and restore sessions across reboots (loaded at the end of tmux.conf)
+[".local/share/tmux/plugins/tmux-resurrect"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-resurrect.git"
+    refreshPeriod = "168h"
+
+[".local/share/tmux/plugins/tmux-continuum"]
+    type = "git-repo"
+    url = "https://github.com/tmux-plugins/tmux-continuum.git"
+    refreshPeriod = "168h"

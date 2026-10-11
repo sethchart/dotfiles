@@ -13,6 +13,7 @@ packages:
     - pacman-contrib
     - reflector
     - man-db
+    - inetutils
     - openssh
     - iwd
     - impala

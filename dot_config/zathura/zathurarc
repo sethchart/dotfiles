@@ -1,0 +1,17 @@
+# Dark pages to match the navy theme; Ctrl+R toggles back to the original colours
+set recolor true
+set recolor-keephue true
+set recolor-lightcolor "#1e2030"
+set recolor-darkcolor "#c0caf5"
+set default-bg "#1e2030"
+
+# Status bar and input line
+set statusbar-bg "#2f334d"
+set statusbar-fg "#c0caf5"
+set inputbar-bg "#1e2030"
+set inputbar-fg "#c0caf5"
+set highlight-color "rgba(232,149,90,0.4)"
+set highlight-active-color "rgba(232,149,90,0.7)"
+
+# Copy selections to the clipboard, not just the primary selection
+set selection-clipboard clipboard
