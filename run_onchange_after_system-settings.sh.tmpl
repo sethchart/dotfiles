@@ -15,6 +15,9 @@ if pacman -Q networkmanager &>/dev/null; then
   sudo pacman -Rns --noconfirm networkmanager
 fi
 sudo systemctl enable --now systemd-resolved.service systemd-networkd.service iwd.service
+# networkd-wait-online only sees networkd's links, not iwd's Wi-Fi, so it would
+# stall anything ordered after network-online.target (reflector, keyring sync) for 2 min
+sudo systemctl disable systemd-networkd-wait-online.service
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # Weekly SSD TRIM, and weekly pruning of the package cache to the last 3 versions
