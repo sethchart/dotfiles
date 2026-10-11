@@ -1,0 +1,30 @@
+# Lock screen: nebula wallpaper with a navy and orange unlock ring
+image=~/Pictures/Wallpapers/carina-nebula-cosmic-cliffs.png
+scaling=fill
+color=1e2030
+font=JetBrainsMono Nerd Font
+indicator-idle-visible
+indicator-radius=90
+indicator-thickness=8
+show-failed-attempts
+ignore-empty-password
+
+inside-color=1e2030cc
+ring-color=3b4261
+line-color=00000000
+separator-color=00000000
+text-color=c0caf5
+key-hl-color=e8955a
+bs-hl-color=e05561
+
+inside-ver-color=1e2030cc
+ring-ver-color=e8955a
+text-ver-color=e8955a
+
+inside-wrong-color=1e2030cc
+ring-wrong-color=e05561
+text-wrong-color=e05561
+
+inside-clear-color=1e2030cc
+ring-clear-color=a9b1d6
+text-clear-color=a9b1d6

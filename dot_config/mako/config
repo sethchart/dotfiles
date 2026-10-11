@@ -1,0 +1,16 @@
+# Notifications in the navy theme; urgent ones get a red border and stay until dismissed
+font=JetBrainsMono Nerd Font 11
+background-color=#1e2030
+text-color=#c0caf5
+border-color=#3b4261
+progress-color=over #2f334d
+border-size=2
+border-radius=6
+padding=10
+margin=10
+width=360
+default-timeout=5000
+
+[urgency=high]
+border-color=#e05561
+default-timeout=0
