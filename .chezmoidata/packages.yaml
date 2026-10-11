@@ -7,6 +7,7 @@ packages:
     # system
     - base
     - base-devel
+    - dosfstools
     - linux
     - linux-firmware
     - sudo
@@ -47,9 +48,14 @@ packages:
     - pipewire-pulse
     - wireplumber
     - playerctl
+    - pipewire-alsa
+    - pipewire-jack
+    - rtkit
+    - alsa-utils
     # fonts
     - noto-fonts
     - noto-fonts-emoji
+    - noto-fonts-cjk
     - terminus-font
     - ttf-jetbrains-mono-nerd
     # tools
@@ -66,6 +72,12 @@ packages:
     - btop
     - opencode
     - unzip
+    - tree
+    - jq
+    # python: projects and versions (uv), lint/format (ruff), types (pyright)
+    - uv
+    - ruff
+    - pyright
     # apps
     - firefox
     - signal-desktop
@@ -82,6 +94,10 @@ packages:
     common: []
     workstation:
       - chrysalis-bin
+  # Pulled in by other packages; marked as dependencies if installed explicitly
+  asdeps:
+    - ttf-dejavu
+    - mesa
   # Uninstalled (with their unneeded dependencies) wherever they're present
   remove:
     - zoom

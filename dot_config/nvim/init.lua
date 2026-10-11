@@ -37,3 +37,29 @@ vim.opt.splitbelow = true
 -- Status line: file, type, line position
 vim.opt.ruler = false
 vim.opt.statusline = '%f %y editing line %-4l/ %-4L'
+
+-- Python language servers (built-in LSP, no plugins): pyright for types,
+-- completion and go-to-definition; ruff for lint and format. Neovim's default
+-- maps cover the rest: K hover, grn rename, gra code action, grr references.
+vim.lsp.config('pyright', {
+  cmd = { 'pyright-langserver', '--stdio' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'setup.py', 'requirements.txt', '.git' },
+  settings = { python = { analysis = { autoSearchPaths = true, useLibraryCodeForTypes = true } } },
+  -- Use the project's uv venv when there is one
+  before_init = function(_, config)
+    local python = config.root_dir and config.root_dir .. '/.venv/bin/python'
+    if python and vim.uv.fs_stat(python) then
+      config.settings.python.pythonPath = python
+    end
+  end,
+})
+vim.lsp.config('ruff', {
+  cmd = { 'ruff', 'server' },
+  filetypes = { 'python' },
+  root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
+})
+vim.lsp.enable({ 'pyright', 'ruff' })
+
+-- Format the buffer with the language server (ruff for Python)
+vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
