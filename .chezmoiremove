@@ -12,14 +12,13 @@
 Pictures/wallpapers
 dotfiles-pre-chezmoi-backup
 
-# Uninstalled tools: snowsql, uv (standalone installer), zoom
+# Uninstalled tools: snowsql, zoom, and the standalone uv installer's binaries
+# and receipt (uv's data in ~/.local/share/uv stays for the pacman uv)
 bin/snowsql
 .snowsql
 .local/bin/uv
 .local/bin/uvx
-.local/share/uv
-.config/uv
-.cache/uv
+.config/uv/uv-receipt.json
 .zoom
 .config/zoom
 .config/zoom.conf
