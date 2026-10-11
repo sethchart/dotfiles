@@ -15,6 +15,8 @@ packages:
     - man-db
     - inetutils
     - openssh
+    - iwd
+    - impala
     - bluez
     - bluez-utils
     - bluetui
@@ -74,9 +76,6 @@ packages:
   # Only on the machine with this hostname
   laptop:
     - brightnessctl
-    # Wi-Fi via iwd; other machines use NetworkManager, which conflicts with iwd
-    - iwd
-    - impala
   desktop: []
   # From the AUR, via yay
   aur: []

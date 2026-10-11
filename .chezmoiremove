@@ -1,0 +1,3 @@
+# Old configs that would shadow managed ones; chezmoi apply deletes them
+.tmux.conf
+.config/tmux/status_segments.sh

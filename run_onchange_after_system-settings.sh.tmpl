@@ -3,6 +3,19 @@
 # chezmoi re-runs this whenever the rendered script changes.
 set -euo pipefail
 
+# Networking: iwd for Wi-Fi (impala is its TUI) with its built-in DHCP,
+# systemd-networkd for wired, systemd-resolved for DNS. NetworkManager would
+# fight iwd for the Wi-Fi card, so it is removed if present.
+sudo mkdir -p /etc/iwd /etc/systemd/network
+printf '[General]\nEnableNetworkConfiguration=true\n\n[Network]\nNameResolvingService=systemd\n' | sudo tee /etc/iwd/main.conf >/dev/null
+printf '[Match]\nType=ether\n\n[Network]\nDHCP=yes\n' | sudo tee /etc/systemd/network/20-wired.network >/dev/null
+if pacman -Q networkmanager &>/dev/null; then
+  sudo systemctl disable --now NetworkManager.service NetworkManager-wait-online.service NetworkManager-dispatcher.service
+  sudo pacman -Rns --noconfirm networkmanager
+fi
+sudo systemctl enable --now systemd-resolved.service systemd-networkd.service iwd.service
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
 # Power profiles (powerprofilesctl set power-saver|balanced|performance)
 sudo systemctl enable --now power-profiles-daemon.service
 

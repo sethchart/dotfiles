@@ -89,12 +89,7 @@ input type:touchpad {
     bindsym $mod+c exec cliphist list | fuzzel --dmenu --no-icons --prompt 'clip > ' | cliphist decode | wl-copy
 
     # Wi-Fi and Bluetooth menus in a floating terminal
-    # (iwd's impala on the laptop; NetworkManager's nmtui elsewhere)
-{{- if eq .chezmoi.hostname "laptop" }}
     bindsym $mod+Shift+w exec foot --app-id floating-tui impala
-{{- else }}
-    bindsym $mod+Shift+w exec foot --app-id floating-tui nmtui
-{{- end }}
     bindsym $mod+Shift+b exec foot --app-id floating-tui bluetui
     for_window [app_id="floating-tui"] floating enable, resize set 900 600
 
