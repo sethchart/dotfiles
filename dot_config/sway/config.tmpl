@@ -255,6 +255,11 @@ bindsym $mod+r mode "resize"
     exec wlsunset -S 07:00 -s 19:30
     # Mount USB drives automatically
     exec udiskie
+    # Signal, hidden in the bar's tray so its notifications reach mako
+    exec signal-desktop --start-in-tray
+
+# Let apps bring themselves to the front, e.g. clicking a Signal notification
+focus_on_window_activation focus
 
 #
 # Status Bar:

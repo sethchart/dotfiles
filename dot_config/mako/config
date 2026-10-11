@@ -14,3 +14,7 @@ default-timeout=5000
 [urgency=high]
 border-color=#e05561
 default-timeout=0
+
+# Signal messages get an orange border to stand out from system notifications
+[app-name=Signal]
+border-color=#e8955a
