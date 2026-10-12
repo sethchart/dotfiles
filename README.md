@@ -53,3 +53,23 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
   per-app overrides in `~/.config/keyd/app.conf`)
 - `run_once_after_install-claude-code.sh` installs Claude Code with its native installer;
   opencode comes from the package list
+
+## SSH between machines
+
+`ssh laptop`, `ssh workstation` and `ssh phone` (`~/.ssh/config`) use
+DHCP-reserved IPs on the home router; mDNS `.local` names don't cross the mesh
+Wi-Fi. sshd accepts keys only. `~/.ssh/authorized_keys` lists one public key per
+device; private keys stay on their device and never go in this repo.
+
+New machine: `ssh-keygen -t ed25519 -C seth@<host>`, add the `.pub` line to
+`private_dot_ssh/authorized_keys`, push, `chezmoi update` everywhere. Tick
+"automatically unlock" when gcr first asks for the passphrase; the login
+keyring is unlocked at tty login (PAM), so no prompts after that.
+
+Phone (Termux, not managed by chezmoi): `pkg install openssh`, `sshd` (port
+8022), `termux-wake-lock` to keep it alive. After keys change, refresh it with
+
+    curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/authorized_keys -o ~/.ssh/authorized_keys
+    curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/config -o ~/.ssh/config
+
+Password logins are off via `$PREFIX/etc/ssh/sshd_config.d/10-keys-only.conf`.
