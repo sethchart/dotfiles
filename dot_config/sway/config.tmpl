@@ -259,8 +259,8 @@ bindsym $mod+r mode "resize"
     exec signal-desktop --start-in-tray
     # Per-app key remaps from ~/.config/keyd/app.conf (e.g. Super+C/V in foot)
     exec keyd-application-mapper -d
-    # Secrets storage and ssh-agent
-    exec gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+    # Secrets storage (the ssh agent is gcr-ssh-agent, see .bash_profile)
+    exec gnome-keyring-daemon --start --components=pkcs11,secrets
 
 # Let apps bring themselves to the front, e.g. clicking a Signal notification
 focus_on_window_activation focus

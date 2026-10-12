@@ -1,0 +1,8 @@
+# Each machine reaches the other by its mDNS name on the local network.
+Host laptop workstation
+    HostName %h.local
+    User seth
+
+Host *
+    # Ask for a key's passphrase once, then keep it in the agent for the session
+    AddKeysToAgent yes

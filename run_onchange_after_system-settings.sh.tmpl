@@ -20,6 +20,17 @@ sudo systemctl enable --now systemd-resolved.service systemd-networkd.service iw
 sudo systemctl disable systemd-networkd-wait-online.service
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
+# SSH server: keys only (from ~/.ssh/authorized_keys), no root logins.
+# sshd uses the first value it reads, so 10- wins over Arch's 99- defaults.
+sudo mkdir -p /etc/ssh/sshd_config.d
+printf 'PasswordAuthentication no\nKbdInteractiveAuthentication no\nPermitRootLogin no\nAuthenticationMethods publickey\n' | sudo tee /etc/ssh/sshd_config.d/10-keys-only.conf >/dev/null
+sudo sshd -t
+sudo systemctl enable sshd.service
+sudo systemctl reload-or-restart sshd.service
+
+# SSH agent from gcr, at $XDG_RUNTIME_DIR/gcr/ssh (SSH_AUTH_SOCK in .bash_profile)
+systemctl --user enable --now gcr-ssh-agent.socket
+
 # Weekly SSD TRIM, and weekly pruning of the package cache to the last 3 versions
 sudo systemctl enable --now fstrim.timer paccache.timer
 
