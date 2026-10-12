@@ -9,6 +9,11 @@ Host workstation
 Host laptop workstation
     User seth
 
+# Raspberry Pi (Debian, also the LAN's DNS server)
+Host pi
+    HostName 192.168.1.246
+    User seth
+
 # Termux on the phone: its sshd runs on 8022 and accepts any user name
 Host phone
     HostName 192.168.1.9
