@@ -9,6 +9,11 @@ Host workstation
 Host laptop workstation
     User seth
 
+# Termux on the phone: its sshd runs on 8022 and accepts any user name
+Host phone
+    HostName 192.168.1.9
+    Port 8022
+
 Host *
     # Ask for a key's passphrase once, then keep it in the agent for the session
     AddKeysToAgent yes
