@@ -1,6 +1,12 @@
-# Each machine reaches the other by its mDNS name on the local network.
+# Each machine has a DHCP reservation on the home router (mDNS .local names
+# don't cross the mesh Wi-Fi).
+Host laptop
+    HostName 192.168.1.23
+
+Host workstation
+    HostName 192.168.1.31
+
 Host laptop workstation
-    HostName %h.local
     User seth
 
 Host *
