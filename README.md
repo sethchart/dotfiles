@@ -56,7 +56,7 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
 
 ## SSH between machines
 
-`ssh laptop`, `ssh workstation` and `ssh phone` (`~/.ssh/config`) use
+`ssh laptop`, `ssh workstation`, `ssh pi` and `ssh phone` (`~/.ssh/config`) use
 DHCP-reserved IPs on the home router; mDNS `.local` names don't cross the mesh
 Wi-Fi. sshd accepts keys only. `~/.ssh/authorized_keys` lists one public key per
 device; private keys stay on their device and never go in this repo.
@@ -73,3 +73,10 @@ Phone (Termux, not managed by chezmoi): `pkg install openssh`, `sshd` (port
     curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/config -o ~/.ssh/config
 
 Password logins are off via `$PREFIX/etc/ssh/sshd_config.d/10-keys-only.conf`.
+The phone's key has no passphrase (Android encrypts its storage).
+
+Raspberry Pi (Debian, not managed by chezmoi): after keys change, refresh it with
+
+    ssh pi 'cat > ~/.ssh/authorized_keys' < ~/.ssh/authorized_keys
+
+Password logins are off via `/etc/ssh/sshd_config.d/10-keys-only.conf`.
