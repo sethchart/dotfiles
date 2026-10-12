@@ -24,6 +24,7 @@ sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 # sshd uses the first value it reads, so 10- wins over Arch's 99- defaults.
 sudo mkdir -p /etc/ssh/sshd_config.d
 printf 'PasswordAuthentication no\nKbdInteractiveAuthentication no\nPermitRootLogin no\nAuthenticationMethods publickey\n' | sudo tee /etc/ssh/sshd_config.d/10-keys-only.conf >/dev/null
+sudo ssh-keygen -A  # host keys, normally made on sshd's first start; needed for the check below
 sudo sshd -t
 sudo systemctl enable sshd.service
 sudo systemctl reload-or-restart sshd.service
