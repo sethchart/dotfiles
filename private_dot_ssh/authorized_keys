@@ -1,3 +1,4 @@
 # One key per machine; private keys never leave their machine.
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIASN+XQMqmKbN+TIPMXs6VRH5cKjr5YP3871utzuy8X0 seth@workstation
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjsxrP38yl/PiBFQsozsaAtrPq3DGmKqjnoDTxVba2W seth@laptop
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJzamgPG4L/l+NcaJ/i8L35Ln6urMd/lbBcSj7Mgv3UC seth@phone
