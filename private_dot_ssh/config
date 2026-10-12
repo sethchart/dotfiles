@@ -20,5 +20,7 @@ Host phone
     Port 8022
 
 Host *
+    # Host keys of my machines ship in known_hosts_home; ssh adds others to known_hosts
+    UserKnownHostsFile ~/.ssh/known_hosts ~/.ssh/known_hosts_home
     # Ask for a key's passphrase once, then keep it in the agent for the session
     AddKeysToAgent yes

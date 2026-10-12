@@ -60,6 +60,8 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
 DHCP-reserved IPs on the home router; mDNS `.local` names don't cross the mesh
 Wi-Fi. sshd accepts keys only. `~/.ssh/authorized_keys` lists one public key per
 device; private keys stay on their device and never go in this repo.
+`~/.ssh/known_hosts_home` holds each device's host key, so connecting to a
+device for the first time never asks to confirm its fingerprint.
 
 New machine: `ssh-keygen -t ed25519 -C seth@<host>`, add the `.pub` line to
 `private_dot_ssh/authorized_keys`, push, `chezmoi update` everywhere. Tick
@@ -71,6 +73,7 @@ Phone (Termux, not managed by chezmoi): `pkg install openssh`, `sshd` (port
 
     curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/authorized_keys -o ~/.ssh/authorized_keys
     curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/config -o ~/.ssh/config
+    curl -fsSL https://raw.githubusercontent.com/sethchart/dotfiles/main/private_dot_ssh/known_hosts_home -o ~/.ssh/known_hosts_home
 
 Password logins are off via `$PREFIX/etc/ssh/sshd_config.d/10-keys-only.conf`.
 The phone's key has no passphrase (Android encrypts its storage).

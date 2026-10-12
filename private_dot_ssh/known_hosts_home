@@ -1,0 +1,18 @@
+# Host keys of my own machines, so ssh never asks to trust them (see ~/.ssh/config).
+# ssh still records any other hosts in ~/.ssh/known_hosts.
+
+# 192.168.1.31:22 SSH-2.0-OpenSSH_10.6
+# workstation
+192.168.1.31 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINPlPHX+vaDIO/MMidTrChMiJyBUkJXrSERYxwvGmRZe
+
+# 192.168.1.23:22 SSH-2.0-OpenSSH_10.6
+# laptop
+192.168.1.23 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOp9X00mzddQ4WxeWrfZXaCIgEb6A/6ScLzMpwxgL/ty
+
+# 192.168.1.246:22 SSH-2.0-OpenSSH_10.0p2 Debian-7+deb13u2
+# pi
+192.168.1.246 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINjH6e6sklkIfvnaCBSxyfUyyBnWETQ20c+/vZZsYjad
+
+# 192.168.1.9:8022 SSH-2.0-OpenSSH_10.3
+# phone (Termux)
+[192.168.1.9]:8022 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVH2lAWF2Bp7qEY0POoc2zpVTDPMSBijRvDzeD2ZvIa
