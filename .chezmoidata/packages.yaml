@@ -23,6 +23,7 @@ packages:
     - bluetui
     - power-profiles-daemon
     - udiskie
+    - seahorse
     - keyd
     - gnome-keyring
     # desktop

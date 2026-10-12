@@ -32,6 +32,20 @@ sudo systemctl reload-or-restart sshd.service
 # SSH agent from gcr, at $XDG_RUNTIME_DIR/gcr/ssh (SSH_AUTH_SOCK in .bash_profile)
 systemctl --user enable --now gcr-ssh-agent.socket
 
+# Unlock the gnome-keyring login keyring with the password typed at the tty
+# login, so ssh key passphrases saved there need no prompt. `passwd` changes
+# the keyring password too, keeping the two the same. ("optional": a keyring
+# problem can never block a login.)
+if ! grep -q pam_gnome_keyring /etc/pam.d/login; then
+  sudo sed -i \
+    -e '/^auth.*system-local-login/a auth       optional     pam_gnome_keyring.so' \
+    -e '/^session.*system-local-login/a session    optional     pam_gnome_keyring.so auto_start' \
+    /etc/pam.d/login
+fi
+if ! grep -q pam_gnome_keyring /etc/pam.d/passwd; then
+  echo 'password   optional     pam_gnome_keyring.so' | sudo tee -a /etc/pam.d/passwd >/dev/null
+fi
+
 # Weekly SSD TRIM, and weekly pruning of the package cache to the last 3 versions
 sudo systemctl enable --now fstrim.timer paccache.timer
 
