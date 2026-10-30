@@ -53,6 +53,7 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
   per-app overrides in `~/.config/keyd/app.conf`)
 - `run_once_after_install-claude-code.sh` installs Claude Code with its native installer;
   opencode comes from the package list
+- `run_once_after_install-rust.sh` installs Rust (stable, via rustup) into `~/.cargo`
 
 ## SSH between machines
 

@@ -8,6 +8,8 @@
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
 # Graphical passphrase prompt when ssh has no terminal to ask in
 export SSH_ASKPASS=/usr/lib/gcr4-ssh-askpass
+# Rust toolchain (rustup) on PATH, inherited by sway
+[[ -f ~/.cargo/env ]] && . ~/.cargo/env
 
 # Start sway when logging in on tty1
 if [[ -z $WAYLAND_DISPLAY && $XDG_VTNR -eq 1 ]]; then

@@ -17,6 +17,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 export PATH="$HOME/.local/bin:$PATH"
+[[ -f ~/.cargo/env ]] && . ~/.cargo/env
 
 # fzf: Ctrl+R history search, Ctrl+T insert file path, Alt+C cd into directory
 if command -v fzf >/dev/null; then
