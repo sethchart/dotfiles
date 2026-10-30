@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Qobine
+Comment=Hi-res Qobuz player (the qobine package ships no launcher entry)
+Exec=qobine-gtk
+Icon=audio-x-generic
+Terminal=false
+Categories=Audio;AudioVideo;Player;

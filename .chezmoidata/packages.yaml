@@ -95,6 +95,7 @@ packages:
     common: []
     workstation:
       - chrysalis-bin
+      - qobine
   # Pulled in by other packages; marked as dependencies if installed explicitly
   asdeps:
     - ttf-dejavu
@@ -106,3 +107,4 @@ packages:
     - wofi
     - dmidecode
     - yay-debug
+    - qobine-debug
