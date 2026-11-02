@@ -46,6 +46,9 @@ if ! grep -q pam_gnome_keyring /etc/pam.d/passwd; then
   echo 'password   optional     pam_gnome_keyring.so' | sudo tee -a /etc/pam.d/passwd >/dev/null
 fi
 
+# Clock sync over NTP (systemd-timesyncd, Arch's default pool servers)
+sudo timedatectl set-ntp true
+
 # Weekly SSD TRIM, and weekly pruning of the package cache to the last 3 versions
 sudo systemctl enable --now fstrim.timer paccache.timer
 
