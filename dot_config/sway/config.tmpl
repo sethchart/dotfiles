@@ -32,9 +32,9 @@ output * bg ~/Pictures/Wallpapers/carina-nebula-cosmic-cliffs.png fill
 ### Idle configuration
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f' \
+         timeout 1800 'swaylock -f' \
 {{- if ne .chezmoi.hostname "workstation" }}
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         timeout 2100 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 {{- end }}
          before-sleep 'swaylock -f'
 #
