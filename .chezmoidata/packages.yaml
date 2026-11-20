@@ -92,7 +92,8 @@ packages:
   workstation: []
   # From the AUR, via yay: every machine, then per hostname
   aur:
-    common: []
+    common:
+      - zoom
     workstation:
       - chrysalis-bin
       - qobine
@@ -102,7 +103,6 @@ packages:
     - mesa
   # Uninstalled (with their unneeded dependencies) wherever they're present
   remove:
-    - zoom
     - aws-cli
     - wofi
     - dmidecode
