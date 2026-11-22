@@ -6,7 +6,7 @@
 # Named install-user-* so it runs after install-rust (rustup).
 set -euo pipefail
 
-rev=98ccfa80c4691fd77adfe94419a6d750e499235c
+rev=a0b28219a67a7bbdb769d32a9e6893ca7a118a29
 
 # shellcheck source=/dev/null
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
