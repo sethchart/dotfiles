@@ -7,5 +7,5 @@ miniflux:
   #   tailscale status --json | jq -r .Self.DNSName
   # Empty until then: Miniflux works on http://127.0.0.1:8080 on the
   # workstation only.
-  url: ""
+  url: "https://workstation.tail9c4b52.ts.net/"
   user: seth
