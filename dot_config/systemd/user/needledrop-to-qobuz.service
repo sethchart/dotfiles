@@ -1,0 +1,9 @@
+[Unit]
+Description=Add albums reviewed by The Needle Drop to the Qobuz "Needle Drop" playlist
+After=miniflux.service
+
+[Service]
+Type=oneshot
+# qobuz (qobuz-cli) is installed by cargo
+Environment=PATH=%h/.local/bin:%h/.cargo/bin:/usr/bin
+ExecStart=%h/.local/bin/needledrop-to-qobuz

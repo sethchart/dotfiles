@@ -1,2 +1,8 @@
 README.md
 LICENSE
+{{- if ne .chezmoi.hostname "workstation" }}
+# Miniflux and its automations run on the workstation only
+.config/containers/systemd
+.config/systemd/user/needledrop-to-qobuz.*
+.local/bin/needledrop-to-qobuz
+{{- end }}

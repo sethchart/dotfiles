@@ -1,0 +1,225 @@
+#!/usr/bin/env python3
+"""Add albums reviewed by The Needle Drop to a Qobuz playlist.
+
+Reads the channel's YouTube feed from Miniflux, picks out album, EP and
+mixtape reviews by their title ("Artist - Album ALBUM REVIEW"), finds each
+album on Qobuz with qobuz-cli and appends its tracks to a playlist, so the
+music can be heard before the review is watched. The video stays unread in
+Miniflux.
+
+Each feed entry is handled once (state in ~/.local/state/needledrop-to-qobuz);
+albums not found on Qobuz are listed in misses.tsv there. `qobuz append`
+skips tracks the playlist already holds, so re-running is harmless.
+
+Usage:
+  needledrop-to-qobuz               process new reviews
+  needledrop-to-qobuz --dry-run     show what would be added; change nothing
+  needledrop-to-qobuz --title T     test one video title (implies --dry-run
+                                    unless --apply is given)
+
+Environment (all optional):
+  MINIFLUX_URL          default http://127.0.0.1:8080
+  MINIFLUX_TOKEN_FILE   default ~/.config/miniflux/api-token (Settings › API Keys)
+  NEEDLEDROP_FEED_ID    Miniflux feed id; default: the feed whose title
+                        matches "needle drop"
+  NEEDLEDROP_PLAYLIST   default "Needle Drop"
+"""
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import sys
+import unicodedata
+import urllib.request
+from pathlib import Path
+
+REVIEW = re.compile(
+    r"^\s*(?P<artist>.+?)\s+[-–—]\s+(?P<album>.+?)\s+(?:ALBUM|EP|MIXTAPE)\s+REVIEW\b"
+)
+FEED_TITLE = re.compile(r"needle\s*drop", re.IGNORECASE)
+# Qobuz edition suffixes that still count as the reviewed album.
+EDITION = re.compile(r"\s*[\(\[][^\)\]]*[\)\]]\s*$")
+
+HOME = Path.home()
+STATE_DIR = Path(os.environ.get("XDG_STATE_HOME") or HOME / ".local/state") / "needledrop-to-qobuz"
+
+
+class QobuzAuth(Exception):
+    """qobuz-cli needs `qobuz login` (exit 3)."""
+
+
+def norm(s: str) -> str:
+    """Lower case, accents and punctuation dropped: 'Björk!' -> 'bjork'."""
+    s = unicodedata.normalize("NFKD", s.replace("&", "and"))
+    return "".join(c for c in s.lower() if c.isalnum())
+
+
+def parse_title(title: str) -> tuple[str, str] | None:
+    m = REVIEW.match(title)
+    return (m["artist"], m["album"]) if m else None
+
+
+# ---- qobuz-cli -------------------------------------------------------------
+
+
+def qobuz(*args: str, stdin: str | None = None) -> str:
+    p = subprocess.run(["qobuz", *args], input=stdin, capture_output=True, text=True)
+    if p.returncode == 3:
+        raise QobuzAuth(p.stderr.strip())
+    if p.returncode != 0:
+        raise RuntimeError(f"qobuz {args[0]}: {p.stderr.strip()}")
+    return p.stdout
+
+
+def find_album(artist: str, album: str) -> dict | None:
+    """The best Qobuz album for a review, or None."""
+    want_artist, want_album = norm(artist), norm(album)
+
+    def matches(a: dict) -> bool:
+        got_artist = norm(a.get("artist") or "")
+        title = a.get("title") or ""
+        artist_ok = bool(got_artist) and (
+            want_artist in got_artist or got_artist in want_artist
+        )
+        album_ok = want_album in (norm(title), norm(EDITION.sub("", title)))
+        return artist_ok and album_ok and a.get("streamable") is not False
+
+    for query in (f"{artist} {album}", album):
+        out = qobuz("--json", "search", "-n", "15", query)
+        found = [json.loads(line) for line in out.splitlines() if line.strip()]
+        hits = [a for a in found if matches(a)]
+        if hits:
+            # Prefer the plain edition: the shortest title among matches.
+            return min(hits, key=lambda a: len(a.get("title") or ""))
+    return None
+
+
+def add_album(album_id: str, playlist: str) -> str:
+    tracks = qobuz("album", album_id)
+    return qobuz("append", playlist, "-", stdin=tracks).strip()
+
+
+# ---- Miniflux --------------------------------------------------------------
+
+
+class Miniflux:
+    def __init__(self) -> None:
+        self.url = os.environ.get("MINIFLUX_URL", "http://127.0.0.1:8080").rstrip("/")
+        token_file = Path(
+            os.environ.get("MINIFLUX_TOKEN_FILE") or HOME / ".config/miniflux/api-token"
+        )
+        try:
+            self.token = token_file.read_text().strip()
+        except FileNotFoundError:
+            sys.exit(
+                f"needledrop-to-qobuz: no Miniflux API token at {token_file}; "
+                "create one under Settings › API Keys and save it there"
+            )
+
+    def get(self, path: str):
+        req = urllib.request.Request(
+            f"{self.url}/v1/{path}", headers={"X-Auth-Token": self.token}
+        )
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r)
+
+    def feed_id(self) -> int:
+        if fid := os.environ.get("NEEDLEDROP_FEED_ID"):
+            return int(fid)
+        feeds = [f for f in self.get("feeds") if FEED_TITLE.search(f["title"])]
+        if len(feeds) != 1:
+            names = ", ".join(f["title"] for f in feeds) or "none"
+            sys.exit(
+                f"needledrop-to-qobuz: expected one Miniflux feed titled like "
+                f"'needle drop', found {names}; set NEEDLEDROP_FEED_ID"
+            )
+        return feeds[0]["id"]
+
+    def entries(self, feed_id: int) -> list[dict]:
+        page = self.get(
+            f"feeds/{feed_id}/entries?order=published_at&direction=asc&limit=200"
+        )
+        return page["entries"]
+
+
+# ---- state -----------------------------------------------------------------
+
+
+def load_seen() -> set[int]:
+    try:
+        return set(json.loads((STATE_DIR / "seen.json").read_text()))
+    except FileNotFoundError:
+        return set()
+
+
+def save_seen(seen: set[int]) -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    tmp = STATE_DIR / "seen.json.tmp"
+    tmp.write_text(json.dumps(sorted(seen)))
+    tmp.replace(STATE_DIR / "seen.json")
+
+
+def record_miss(title: str, url: str) -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    with open(STATE_DIR / "misses.tsv", "a") as f:
+        f.write(f"{title}\t{url}\n")
+
+
+# ---- main ------------------------------------------------------------------
+
+
+def handle(title: str, playlist: str, apply: bool) -> bool | None:
+    """Adds the reviewed album. True: added (or would be); False: not on
+    Qobuz; None: not an album review."""
+    parsed = parse_title(title)
+    if not parsed:
+        return None
+    artist, album = parsed
+    found = find_album(artist, album)
+    if not found:
+        print(f"not on Qobuz: {artist} — {album}")
+        return False
+    label = f"{found['artist']} — {found['title']} ({found['id']})"
+    if apply:
+        print(f"added {label} → {add_album(found['id'], playlist)}")
+    else:
+        print(f"would add {label} to {playlist!r}")
+    return True
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    ap.add_argument("--dry-run", action="store_true", help="change nothing")
+    ap.add_argument("--title", help="handle this one video title instead")
+    ap.add_argument("--apply", action="store_true", help="with --title: really add it")
+    args = ap.parse_args()
+    playlist = os.environ.get("NEEDLEDROP_PLAYLIST", "Needle Drop")
+
+    try:
+        if args.title:
+            if handle(args.title, playlist, args.apply) is None:
+                print(f"not an album review: {args.title}")
+            return 0
+
+        mf = Miniflux()
+        seen = load_seen()
+        for e in mf.entries(mf.feed_id()):
+            if e["id"] in seen:
+                continue
+            result = handle(e["title"], playlist, not args.dry_run)
+            if args.dry_run:
+                continue
+            if result is False:
+                record_miss(e["title"], e.get("url", ""))
+            seen.add(e["id"])
+            save_seen(seen)  # after each, so a failure later never repeats work
+        return 0
+    except QobuzAuth as e:
+        print(f"needledrop-to-qobuz: {e}", file=sys.stderr)
+        return 3
+
+
+if __name__ == "__main__":
+    sys.exit(main())

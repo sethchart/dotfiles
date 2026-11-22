@@ -1,0 +1,44 @@
+{{ if eq .chezmoi.hostname "workstation" -}}
+#!/bin/bash
+# Named user-* so it runs after system-settings (subuids, linger).
+# Miniflux (feed reader) as rootless Podman quadlets, plus the hourly
+# Needle Drop → Qobuz automation. Workstation only.
+# chezmoi re-runs this when any of these change:
+#   miniflux.pod             {{ include "dot_config/containers/systemd/miniflux.pod" | sha256sum }}
+#   miniflux-db.container    {{ include "dot_config/containers/systemd/miniflux-db.container" | sha256sum }}
+#   miniflux.container       {{ include "dot_config/containers/systemd/miniflux.container.tmpl" | sha256sum }}
+#   needledrop service/timer {{ include "dot_config/systemd/user/needledrop-to-qobuz.service" | sha256sum }} {{ include "dot_config/systemd/user/needledrop-to-qobuz.timer" | sha256sum }}
+#   miniflux url             {{ .miniflux.url }}
+set -euo pipefail
+
+if ! command -v podman >/dev/null; then
+  echo "miniflux: podman is not installed yet; re-run chezmoi apply" >&2
+  exit 1
+fi
+
+# Secrets live outside the dotfiles repo, generated once.
+dir=$HOME/.config/miniflux
+mkdir -p "$dir"
+chmod 700 "$dir"
+if [[ ! -f $dir/miniflux.env ]]; then
+  umask 077
+  secret() { python3 -c 'import secrets; print(secrets.token_hex(24))'; }
+  db=$(secret)
+  admin=$(secret)
+  printf 'POSTGRES_PASSWORD=%s\n' "$db" >"$dir/db.env"
+  printf 'DATABASE_URL=postgres://miniflux:%s@localhost/miniflux?sslmode=disable\nADMIN_PASSWORD=%s\n' \
+    "$db" "$admin" >"$dir/miniflux.env"
+  # newsboat reads it from the login keyring
+  if printf %s "$admin" | secret-tool store --label=Miniflux service miniflux user {{ .miniflux.user | quote }}; then
+    where="the login keyring (secret-tool lookup service miniflux user {{ .miniflux.user }})"
+  else
+    where="$dir/miniflux.env"
+  fi
+  echo "Miniflux: created user {{ .miniflux.user }}; its password is in $where"
+fi
+
+systemctl --user daemon-reload
+systemctl --user start miniflux.service
+systemctl --user enable --now podman-auto-update.timer needledrop-to-qobuz.timer
+echo "Miniflux: http://127.0.0.1:8080{{ if .miniflux.url }} and {{ .miniflux.url }}{{ end }}"
+{{ end -}}

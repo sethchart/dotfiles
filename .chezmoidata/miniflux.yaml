@@ -1,0 +1,11 @@
+# Miniflux, the feed reader running on the workstation (see
+# dot_config/containers/systemd/). Reached from the other machines and the
+# phone over Tailscale, through `tailscale serve` on the workstation.
+miniflux:
+  # The workstation's HTTPS address on the tailnet, with a trailing slash,
+  # e.g. https://workstation.tail1234.ts.net/ . Find it after `tailscale up`:
+  #   tailscale status --json | jq -r .Self.DNSName
+  # Empty until then: Miniflux works on http://127.0.0.1:8080 on the
+  # workstation only.
+  url: ""
+  user: seth

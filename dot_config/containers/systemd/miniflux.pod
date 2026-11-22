@@ -1,0 +1,6 @@
+# Miniflux and its database share this pod's network: Postgres is reachable
+# only inside it. The web UI/API is published on this machine only;
+# `tailscale serve` exposes it to the tailnet over HTTPS.
+[Pod]
+PodName=miniflux
+PublishPort=127.0.0.1:8080:8080

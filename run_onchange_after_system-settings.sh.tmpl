@@ -52,6 +52,11 @@ sudo timedatectl set-ntp true
 # Weekly SSD TRIM, and weekly pruning of the package cache to the last 3 versions
 sudo systemctl enable --now fstrim.timer paccache.timer
 
+# Tailscale: private network to the workstation's Miniflux (and SSH) from
+# the laptop and phone. Signing in is one-time and interactive:
+# `sudo tailscale up`.
+sudo systemctl enable --now tailscaled.service
+
 # Power profiles (powerprofilesctl set power-saver|balanced|performance)
 sudo systemctl enable --now power-profiles-daemon.service
 
@@ -63,6 +68,15 @@ printf '[ids]\n*\n\n[main]\nleftmeta = layer(meta)\n\n[meta:C]\nc = C-c\nv = C-v
 sudo systemctl enable --now keyd.service
 sudo keyd reload
 sudo usermod -aG keyd "$USER"
+{{- if eq .chezmoi.hostname "workstation" }}
+
+# Rootless Podman (Miniflux): subordinate ids for the user's containers, and
+# lingering so the user's services (Miniflux, its timers) run from boot
+# without a login.
+grep -q "^$USER:" /etc/subuid || sudo usermod --add-subuids 100000-165535 "$USER"
+grep -q "^$USER:" /etc/subgid || sudo usermod --add-subgids 100000-165535 "$USER"
+sudo loginctl enable-linger "$USER"
+{{- end }}
 {{- if eq .chezmoi.hostname "laptop" }}
 
 # Power button hibernates; closing the lid suspends, then hibernates after 2 hours
