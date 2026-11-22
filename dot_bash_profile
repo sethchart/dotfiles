@@ -12,6 +12,6 @@ export SSH_ASKPASS=/usr/lib/gcr4-ssh-askpass
 [[ -f ~/.cargo/env ]] && . ~/.cargo/env
 
 # Start sway when logging in on tty1
-if [[ -z $WAYLAND_DISPLAY && $XDG_VTNR -eq 1 ]]; then
+if [[ -z $WAYLAND_DISPLAY && -z $SSH_CONNECTION && -z $TMUX && $XDG_VTNR -eq 1 ]]; then
     exec sway
 fi
