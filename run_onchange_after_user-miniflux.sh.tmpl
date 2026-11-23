@@ -26,6 +26,8 @@ if [[ ! -f $dir/miniflux.env ]]; then
   db=$(secret)
   admin=$(secret)
   printf 'POSTGRES_PASSWORD=%s\n' "$db" >"$dir/db.env"
+  # ADMIN_PASSWORD is only for the first start, which creates the user; it
+  # is removed below once the keyring's copy is confirmed to work.
   printf 'DATABASE_URL=postgres://miniflux:%s@localhost/miniflux?sslmode=disable\nADMIN_PASSWORD=%s\n' \
     "$db" "$admin" >"$dir/miniflux.env"
   # newsboat reads it from the login keyring
@@ -40,5 +42,28 @@ fi
 systemctl --user daemon-reload
 systemctl --user start miniflux.service
 systemctl --user enable --now podman-auto-update.timer needledrop-to-qobuz.timer
+
+# Keep the password in one place, the login keyring: once its copy logs in,
+# drop ADMIN_PASSWORD from miniflux.env. (CREATE_ADMIN=1 skips a user that
+# already exists, so later starts don't need it.)
+if grep -q '^ADMIN_PASSWORD=' "$dir/miniflux.env"; then
+  pw=$(secret-tool lookup service miniflux user {{ .miniflux.user | quote }} || true)
+  ok=
+  if [[ -n $pw ]]; then
+    for _ in $(seq 60); do  # the first start pulls images and runs migrations
+      # credentials via stdin, not argv, so they never show in `ps`
+      code=$(printf 'user = "%s:%s"\n' {{ .miniflux.user | quote }} "$pw" |
+        curl -s -K - -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/v1/me || true)
+      if [[ $code == 200 ]]; then ok=1; break; fi
+      sleep 5
+    done
+  fi
+  if [[ $ok ]]; then
+    sed -i '/^ADMIN_PASSWORD=/d' "$dir/miniflux.env"
+    echo "Miniflux: password is now kept only in the login keyring"
+  else
+    echo "Miniflux: kept ADMIN_PASSWORD in $dir/miniflux.env; the keyring's password did not log in" >&2
+  fi
+fi
 echo "Miniflux: http://127.0.0.1:8080{{ if .miniflux.url }} and {{ .miniflux.url }}{{ end }}"
 {{ end -}}
