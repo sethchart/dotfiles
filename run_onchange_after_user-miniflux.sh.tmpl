@@ -40,7 +40,9 @@ if [[ ! -f $dir/miniflux.env ]]; then
 fi
 
 systemctl --user daemon-reload
-systemctl --user start miniflux.service
+# restart, not start: this runs when the units changed, and start would
+# leave an already-running Miniflux on its old settings
+systemctl --user restart miniflux.service
 systemctl --user enable --now podman-auto-update.timer needledrop-to-qobuz.timer
 
 # Keep the password in one place, the login keyring: once its copy logs in,

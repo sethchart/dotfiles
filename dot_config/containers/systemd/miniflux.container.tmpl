@@ -12,6 +12,10 @@ Pod=miniflux.pod
 # ADMIN_PASSWORD from miniflux.env); it skips a user that already exists.
 Environment=LISTEN_ADDR=0.0.0.0:8080 RUN_MIGRATIONS=1 CREATE_ADMIN=1 ADMIN_USERNAME={{ .miniflux.user }}
 Environment=POLLING_FREQUENCY=30
+# Everything falls off after 2 days, read or not; starred entries are kept.
+# Removed entries are gone from the UI and search (Miniflux remembers them
+# so a feed refresh doesn't bring them back). Checked hourly.
+Environment=CLEANUP_ARCHIVE_READ_DAYS=2 CLEANUP_ARCHIVE_UNREAD_DAYS=2 CLEANUP_FREQUENCY_HOURS=1
 {{- if .miniflux.url }}
 Environment=BASE_URL={{ .miniflux.url }}
 {{- end }}

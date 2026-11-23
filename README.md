@@ -67,6 +67,9 @@ only; `sudo tailscale serve --bg 8080` (once) publishes it on the tailnet at
 the `miniflux.url` in `.chezmoidata/miniflux.yaml`. Images update themselves
 (`podman-auto-update.timer`); Postgres stays on its major version.
 
+Retention: everything, read or unread, is removed after 2 days unless
+starred (`CLEANUP_*` in `miniflux.container.tmpl`); star anything worth keeping.
+
 Clients: the web UI, newsboat (every machine; `v` opens videos/episodes in
 mpv) and Capy Reader on the phone (with Tailscale).
 
