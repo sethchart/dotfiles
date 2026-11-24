@@ -30,3 +30,8 @@ TimeoutStartSec=900
 
 [Install]
 WantedBy=default.target
+
+[Quadlet]
+# No wait for network-online.target: wait-online is disabled on purpose (it
+# can't see iwd's Wi-Fi), so the wait only ever times out, 90 s into boot.
+DefaultDependencies=false
