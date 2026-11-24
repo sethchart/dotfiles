@@ -1,22 +1,15 @@
-# Each machine has a DHCP reservation on the home router (mDNS .local names
-# don't cross the mesh Wi-Fi).
-Host laptop
-    HostName 192.168.1.23
+# Every machine is reached by its Tailscale name (MagicDNS), so the same
+# names work at home and away. Each device must be signed in to the tailnet
+# (`sudo tailscale up`; the Tailscale app on the phone).
 
-Host workstation
-    HostName 192.168.1.31
-
-Host laptop workstation
-    User seth
-
-# Raspberry Pi (Debian, also the LAN's DNS server)
-Host pi
-    HostName 192.168.1.246
+# pi is the Raspberry Pi (Debian, also the LAN's DNS server)
+Host laptop workstation pi
+    HostName %h.tail9c4b52.ts.net
     User seth
 
 # Termux on the phone: its sshd runs on 8022 and accepts any user name
 Host phone
-    HostName 192.168.1.9
+    HostName phone.tail9c4b52.ts.net
     Port 8022
 
 Host *

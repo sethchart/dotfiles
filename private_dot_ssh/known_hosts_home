@@ -2,13 +2,13 @@
 # ssh still records any other hosts in ~/.ssh/known_hosts.
 
 # workstation
-192.168.1.31 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINPlPHX+vaDIO/MMidTrChMiJyBUkJXrSERYxwvGmRZe
+workstation.tail9c4b52.ts.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINPlPHX+vaDIO/MMidTrChMiJyBUkJXrSERYxwvGmRZe
 
 # laptop
-192.168.1.23 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOp9X00mzddQ4WxeWrfZXaCIgEb6A/6ScLzMpwxgL/ty
+laptop.tail9c4b52.ts.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOp9X00mzddQ4WxeWrfZXaCIgEb6A/6ScLzMpwxgL/ty
 
 # pi
-192.168.1.246 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINjH6e6sklkIfvnaCBSxyfUyyBnWETQ20c+/vZZsYjad
+pi.tail9c4b52.ts.net ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINjH6e6sklkIfvnaCBSxyfUyyBnWETQ20c+/vZZsYjad
 
 # phone (Termux)
-[192.168.1.9]:8022 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVH2lAWF2Bp7qEY0POoc2zpVTDPMSBijRvDzeD2ZvIa
+[phone.tail9c4b52.ts.net]:8022 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINVH2lAWF2Bp7qEY0POoc2zpVTDPMSBijRvDzeD2ZvIa

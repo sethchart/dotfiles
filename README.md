@@ -103,8 +103,8 @@ user) and removed from there automatically once the keyring copy works.
 ## SSH between machines
 
 `ssh laptop`, `ssh workstation`, `ssh pi` and `ssh phone` (`~/.ssh/config`) use
-DHCP-reserved IPs on the home router; mDNS `.local` names don't cross the mesh
-Wi-Fi. sshd accepts keys only. `~/.ssh/authorized_keys` lists one public key per
+each device's Tailscale name (`<name>.tail9c4b52.ts.net`), so they work at home
+and away; every device has to be signed in to the tailnet. sshd accepts keys only. `~/.ssh/authorized_keys` lists one public key per
 device; private keys stay on their device and never go in this repo.
 `~/.ssh/known_hosts_home` holds each device's host key, so connecting to a
 device for the first time never asks to confirm its fingerprint.
@@ -124,7 +124,14 @@ Phone (Termux, not managed by chezmoi): `pkg install openssh`, `sshd` (port
 Password logins are off via `$PREFIX/etc/ssh/sshd_config.d/10-keys-only.conf`.
 The phone's key has no passphrase (Android encrypts its storage).
 
-Raspberry Pi (Debian, not managed by chezmoi): after keys change, refresh it with
+Raspberry Pi (Debian, not managed by chezmoi). Tailscale, once (run on the
+Pi; `--hostname=pi` gives it the name ssh expects, and `--accept-dns=false`
+leaves its own DNS alone, since it serves DNS for the LAN):
+
+    curl -fsSL https://tailscale.com/install.sh | sh
+    sudo tailscale up --hostname=pi --accept-dns=false
+
+After keys change, refresh it with
 
     ssh pi 'cat > ~/.ssh/authorized_keys' < ~/.ssh/authorized_keys
 
