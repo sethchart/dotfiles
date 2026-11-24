@@ -6,3 +6,6 @@ LICENSE
 .config/systemd/user/needledrop-to-qobuz.*
 .local/bin/needledrop-to-qobuz
 {{- end }}
+
+# Claude Code syncs these skills from the claude.ai account itself
+.claude/skills/synced

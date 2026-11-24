@@ -53,6 +53,8 @@ Currently only `~/.config/sway/config` has any (the touchpad settings).
   per-app overrides in `~/.config/keyd/app.conf`)
 - `run_once_after_install-claude-code.sh` installs Claude Code with its native installer;
   opencode comes from the package list
+- Claude Code skills in `~/.claude/skills` (add new ones with `chezmoi add`); `synced/`
+  is ignored because Claude Code syncs those from the claude.ai account itself
 - `run_once_after_install-rust.sh` installs Rust (stable, via rustup) into `~/.cargo`
 - Feeds: Miniflux on the workstation, newsboat everywhere, and the Needle Drop
   → Qobuz automation (see below)
