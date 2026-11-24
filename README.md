@@ -130,9 +130,11 @@ leaves its own DNS alone, since it serves DNS for the LAN):
 
     curl -fsSL https://tailscale.com/install.sh | sh
     sudo tailscale up --hostname=pi --accept-dns=false
+    sudo tailscale set --accept-dns=true   # so ssh from the Pi resolves *.ts.net
 
-After keys change, refresh it with
+(AdGuard Home on the Pi uses its own upstreams, so this doesn't touch the DNS
+it serves.) Its key `seth@pi` has a passphrase. After keys change, refresh it with
 
-    ssh pi 'cat > ~/.ssh/authorized_keys' < ~/.ssh/authorized_keys
+    for f in authorized_keys config known_hosts_home; do ssh pi "cat > ~/.ssh/$f" < ~/.ssh/$f; done
 
 Password logins are off via `/etc/ssh/sshd_config.d/10-keys-only.conf`.
