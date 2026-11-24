@@ -19,3 +19,9 @@ bin/snowsql
 .local/bin/uv
 .local/bin/uvx
 .config/uv/uv-receipt.json
+
+# Qobine (replaced by qobuz-cli): its launcher entry and data/cache
+.local/share/applications/qobine.desktop
+.local/share/qobine
+.local/share/qobine-gtk
+.cache/qobine-gtk
